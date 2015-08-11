@@ -20,8 +20,8 @@ The modification is in the function:
 `bool aml_mode_to_resolution(const char *mode, RESOLUTION_INFO *res);`
 
 Here:
-`
-  else if(strncmp(fromMode.c_str(), "720p59hz", 8) == 0)
+
+`else if(strncmp(fromMode.c_str(), "720p59hz", 8) == 0)
   //else if (StringUtils::EqualsNoCase(fromMode, "720p59hz"))
   {
     res->iWidth = 1280;
@@ -31,12 +31,11 @@ Here:
     res->fRefreshRate = 60;
     res->dwFlags = D3DPRESENTFLAG_PROGRESSIVE;
   }
-
 `
 
 And Here:
-`
-  else if(strncmp(fromMode.c_str(), "1080p59hz", 9) == 0)
+
+`else if(strncmp(fromMode.c_str(), "1080p59hz", 9) == 0)
   //else if (StringUtils::EqualsNoCase(fromMode, "1080p59hz"))
   {
     res->iWidth = 1920;
@@ -46,7 +45,6 @@ And Here:
     res->fRefreshRate = 60;
     res->dwFlags = D3DPRESENTFLAG_PROGRESSIVE;
   }
-
 `
 And, sometimes, the video display rectangle is wrong... just refresh it ...(v15.0 is error, while 14.2 is ok).
 
