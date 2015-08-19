@@ -96,4 +96,5 @@ Enjoy yourself!
 All the apk is stored here:
 http://pan.baidu.com/s/1jGpKmJc
 
+https://github.com/Owersun/xbmc/commit/413d10958c1cc8c9066d93586aebe08c9b2c3de9
 
