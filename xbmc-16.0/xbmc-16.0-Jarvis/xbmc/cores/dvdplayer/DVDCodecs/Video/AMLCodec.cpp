@@ -1639,14 +1639,13 @@ bool CAMLCodec::OpenDecoder(CDVDStreamInfo &hints)
 
   if (strScaler.find("enabled") == std::string::npos)     // Scaler not enabled, use screen size
   {                
-     //m_display_rect = CRect(0, 0, CDisplaySettings::Get().GetCurrentResolutionInfo().iScreenWidth, CDisplaySettings::Get().GetCurrentResolutionInfo().iScreenHeight);
     std::string mode;
     SysfsUtils::GetString("/sys/class/display/mode", mode);
     RESOLUTION_INFO res;
     if (aml_mode_to_resolution(mode.c_str(), &res))
       m_display_rect = CRect(0, 0, res.iScreenWidth, res.iScreenHeight);
     else
-      m_display_rect = CRect(0, 0, CDisplaySettings::Get().GetCurrentResolutionInfo().iScreenWidth, CDisplaySettings::Get().GetCurrentResolutionInfo().iScreenHeight);
+      m_display_rect = CRect(0, 0, CDisplaySettings::GetInstance().GetCurrentResolutionInfo().iScreenWidth, CDisplaySettings::GetInstance().GetCurrentResolutionInfo().iScreenHeight);
   }
 
 /*
