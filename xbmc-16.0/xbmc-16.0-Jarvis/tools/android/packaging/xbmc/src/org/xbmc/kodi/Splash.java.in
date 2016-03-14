@@ -621,12 +621,28 @@ public class Splash extends Activity {
     return m.find();
   }
 
+/*
   private class StorageCheckRunnable implements Runnable {
 		@Override
 		public void run() {
 			mStateMachine.sendEmptyMessage(StorageChecked);
 		}
   };
+*/
+
+  Runnable m_storage_runnable = new Runnable() {
+    public void run() {
+      String state = Environment.getExternalStorageState();
+      Log.d(TAG, "External storage = " + Environment.getExternalStorageDirectory().getAbsolutePath() + "; state = " + state);
+      if (Environment.MEDIA_MOUNTED.equals(state)) {
+        mStateMachine.sendEmptyMessage(StorageChecked);
+      } else {
+        mExternalStorageChecked = true;
+        mStateMachine.sendEmptyMessage(StorageChecked);
+      }
+    }
+  };
+
 
 
   void updateExternalStorageState() {
@@ -634,8 +650,9 @@ public class Splash extends Activity {
     Log.d(TAG, "External storage = " + Environment.getExternalStorageDirectory().getAbsolutePath() + "; state = " + state);
     if (Environment.MEDIA_MOUNTED.equals(state)) {
       mStateMachine.sendEmptyMessage(StorageChecked);
+	  mStateMachine.removeCallbacks(m_storage_runnable);
     } else {
-      mStateMachine.postDelayed(new StorageCheckRunnable(), 1000);
+      //mStateMachine.postDelayed(new StorageCheckRunnable(), 1000);
       mExternalStorageChecked = false;
     }
   }
@@ -656,6 +673,8 @@ public class Splash extends Activity {
     filter.addAction(Intent.ACTION_MEDIA_UNMOUNTED);
     filter.addDataScheme("file");
     registerReceiver(mExternalStorageReceiver, filter);
+
+	mStateMachine.postDelayed(m_storage_runnable, 1000);
   }
 
   void stopWatchingExternalStorage() {
